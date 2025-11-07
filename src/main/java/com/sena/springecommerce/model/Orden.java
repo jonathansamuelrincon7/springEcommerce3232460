@@ -1,5 +1,95 @@
 package com.sena.springecommerce.model;
 
-public class Orden {
+import java.util.Date;
+import java.util.List;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "ordenes")
+public class Orden {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY ) //anotacion JPA
+	private Integer Id;
+	private String numero;
+	private Date fechaCreacion;
+	private Double total;
+	
+	@ManyToOne
+	private Usuario usuario;
+	
+	@OneToMany(mappedBy ="orden")
+	private List<DetalleOrden> detalle;
+
+	public Orden() {
+		
+	}
+
+	public Orden(Integer id, String numero, Date fechaCreacion, Double total) {
+		super();
+		Id = id;
+		this.numero = numero;
+		this.fechaCreacion = fechaCreacion;
+		this.total = total;
+	}
+
+	public Integer getId() {
+		return Id;
+	}
+
+	public void setId(Integer id) {
+		Id = id;
+	}
+
+	public String getNumero() {
+		return numero;
+	}
+
+	public void setNumero(String numero) {
+		this.numero = numero;
+	}
+
+	public Date getFechaCreacion() {
+		return fechaCreacion;
+	}
+
+	public void setFechaCreacion(Date fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
+	}
+
+	public Double getTotal() {
+		return total;
+	}
+
+	public void setTotal(Double total) {
+		this.total = total;
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	public List<DetalleOrden> getDetalle() {
+		return detalle;
+	}
+
+	public void setDetalle(List<DetalleOrden> detalle) {
+		this.detalle = detalle;
+	}
+
+	@Override
+	public String toString() {
+		return "Orden [Id=" + Id + ", numero=" + numero + ", fechaCreacion=" + fechaCreacion + ", total=" + total + "]";
+	}
 }
